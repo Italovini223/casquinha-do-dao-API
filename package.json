@@ -1,0 +1,28 @@
+{
+  "name": "casquinha-do-dao-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "prisma": "^5.22.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.1",
+    "@prisma/client": "^5.22.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.9.0",
+    "bcrypt": "^5.1.1",
+    "fastify": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "tsx": "^4.19.2"
+  }
+}
