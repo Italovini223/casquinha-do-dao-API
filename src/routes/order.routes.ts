@@ -6,4 +6,8 @@ export async function orderRoutes(fastify: FastifyInstance, options: FastifyPlug
   fastify.post('/', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new OrderController().create(request, reply);
   });
+
+  fastify.get('/', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new OrderController().getAll(request, reply);
+  });
 }

@@ -14,4 +14,28 @@ export class ProductController {
       throw new appError("Error creating product", 500);
     }
   }
+
+  async update(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id, name, price, quantity, description } = request.body as ProductProps;
+      const productService = new ProductService();
+      const product = await productService.update({ id, name, price, quantity, description });
+      reply.code(200).send({ product, message: "Product updated" });
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error updating product", 500);
+    }
+  }
+
+  async searchById(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as { id: string };
+      const productService = new ProductService();
+      const product = await productService.getProductById(id);
+      reply.code(200).send({ product });
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error searching product", 500);
+    }
+  }
 }

@@ -19,4 +19,15 @@ export class OrderController {
       reply.code(500).send({ message: 'Error creating order' });
     }
   }
+
+  async getAll(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const orderService = new OrderService();
+      const orders = await orderService.getAll();
+      reply.code(200).send({ orders });
+    } catch (error) {
+      console.log(error);
+      reply.code(500).send({ message: 'Error getting orders' });
+    }
+  }
 } 

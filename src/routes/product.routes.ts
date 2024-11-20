@@ -6,4 +6,12 @@ export async function productRoutes(fastify: FastifyInstance, options: FastifyPl
   fastify.post('/', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new ProductController().create(request, reply);
   });
+
+  fastify.patch('/', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new ProductController().update(request, reply);
+  });
+
+  fastify.get('/:id', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new ProductController().searchById(request, reply);
+  });
 } 

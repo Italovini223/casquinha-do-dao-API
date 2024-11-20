@@ -35,4 +35,46 @@ export class ProductService {
       throw new appError("Error creating product", 500);
     }
   }
+
+  async update(data: { id: string, name?: string, description?: string, price?: number, quantity?: number }) {
+    try {
+      const product = await this.getProductById(data.id);
+
+      if(!product) {
+        throw new appError("Product not found", 404);
+      }
+      const newProduct = await prismaClient.product.update({
+        where: {
+          id: data.id
+        },
+        data: {
+          name: data.name ?? product.name,
+          description: data.description ?? product.description,
+          price: data.price ?? product.price,
+          quantity: data.quantity ?? product.quantity,
+          updatedAt: new Date(),
+        }
+      });
+
+      return newProduct;
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error updating product", 500);
+    }
+  }
+
+  async getProductById(id: string) {
+    try {
+      const product = await prismaClient.product.findUnique({
+        where: {
+          id
+        }
+      });
+
+      return product;
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error getting product", 500);
+    }
+  }
 }
