@@ -4,6 +4,7 @@ export type OrderProduct = {
   id: string;
   orderId: string;
   productId: string;
+  quantity: number;
 };
 
 export class OrderService {
@@ -12,12 +13,18 @@ export class OrderService {
       const order = await prismaClient.order.create({
         data: {
           userId: data.userId,
-          products: {
-            create: data.products
-          },
           total: data.total,
           createdAt: new Date(),
           updatedAt: new Date(),
+          products: {
+            create: data.products.map(product => ({
+              productId: product.productId,
+              quantity: product.quantity
+            }))
+          }
+        },
+        include: {
+          products: true
         }
       });
 
@@ -26,6 +33,5 @@ export class OrderService {
       console.log(error);
       throw new Error("Error creating order");
     }
-
   }
 }
