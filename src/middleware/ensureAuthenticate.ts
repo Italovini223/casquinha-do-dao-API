@@ -1,6 +1,7 @@
 import { verify } from "jsonwebtoken";
 import { jwt } from "../configs/auth";
 import { FastifyRequest, FastifyReply} from "fastify"
+import { appError } from "../utils/appError";
 
 
 
@@ -8,7 +9,7 @@ export function ensureAuthenticate(request: FastifyRequest, reply: FastifyReply,
   const authHeaders = request.headers.authorization;
 
   if (!authHeaders) {
-    throw new Error("Token is missing");
+    throw new appError("Token is missing", 401);
   }
 
   const [, token] = authHeaders.split(" ");
@@ -20,6 +21,6 @@ export function ensureAuthenticate(request: FastifyRequest, reply: FastifyReply,
     }
     return next();
   } catch (error) {
-    throw new Error("Invalid token");
+    throw new appError("Invalid token", 401);
   }
 }

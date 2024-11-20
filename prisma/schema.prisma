@@ -41,6 +41,7 @@ model Order {
   userId    String
   products  OrderProduct[]
   total     Float
+  isPaid    Boolean        @default(false)
   createdAt DateTime       @default(now())
   updatedAt DateTime       @updatedAt
 }
