@@ -59,4 +59,22 @@ export class OrderService {
       throw new appError("Error getting orders", 500);
     }
   }
+
+  async getById(id: string) {
+    try {
+      const order = await prismaClient.order.findUnique({
+        where: {
+          id
+        },
+        include: {
+          products: true
+        }
+      });
+
+      return order;
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error getting order", 500);
+    }
+  }
 }

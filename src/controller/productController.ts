@@ -38,4 +38,15 @@ export class ProductController {
       throw new appError("Error searching product", 500);
     }
   }
+
+  async getAll(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const productService = new ProductService();
+      const products = await productService.getAll();
+      reply.code(200).send({ products });
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error getting products", 500);
+    }
+  }
 }

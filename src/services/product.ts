@@ -77,4 +77,15 @@ export class ProductService {
       throw new appError("Error getting product", 500);
     }
   }
+
+  async getAll() {
+    try {
+      const products = await prismaClient.product.findMany();
+
+      return products;
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error getting products", 500);
+    }
+  }
 }

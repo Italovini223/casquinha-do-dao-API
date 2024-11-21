@@ -14,4 +14,8 @@ export async function productRoutes(fastify: FastifyInstance, options: FastifyPl
   fastify.get('/:id', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new ProductController().searchById(request, reply);
   });
+
+  fastify.get('/', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new ProductController().getAll(request, reply);
+  });
 } 

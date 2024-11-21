@@ -1,10 +1,15 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { OrderService, OrderProduct } from '../services/order';
+import { appError } from '../utils/appError';
 
 type OrderCreateRequest = {
   userId: string;
   products: OrderProduct[];
   total: number;
+}
+
+type GetByIdDataProps = {
+  id: string; 
 }
 
 export class OrderController {
@@ -28,6 +33,18 @@ export class OrderController {
     } catch (error) {
       console.log(error);
       reply.code(500).send({ message: 'Error getting orders' });
+    }
+  }
+
+  async getById(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as GetByIdDataProps;
+      const orderService = new OrderService();
+      const order = await orderService.getById(id);
+      reply.code(200).send({ order });
+    } catch (error) {
+      console.log(error);
+      throw new appError('Error getting order', 500);
     }
   }
 } 
