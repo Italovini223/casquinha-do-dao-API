@@ -19,4 +19,8 @@ export async function orderRoutes(fastify: FastifyInstance, options: FastifyPlug
     return new OrderController().update(request, reply);
   });
 
+  fastify.delete('/:id', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new OrderController().delete(request, reply);
+  });
+
 }

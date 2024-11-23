@@ -61,4 +61,5 @@ export class ProductController {
       throw new appError("Error deleting product", 500);
     }
   }
+
 }

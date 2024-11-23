@@ -64,4 +64,16 @@ export class OrderController {
       throw new appError('Error updating order', 500);
     }
   }
+
+  async delete(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as GetByIdDataProps;
+      const orderService = new OrderService();
+      await orderService.delete(id);
+      reply.code(200).send({ message: 'Order deleted' });
+    } catch (error) {
+      console.log(error);
+      throw new appError('Error deleting order', 500);
+    }
+  }
 } 

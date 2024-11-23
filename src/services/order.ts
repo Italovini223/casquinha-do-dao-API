@@ -96,4 +96,23 @@ export class OrderService {
       throw new appError("Error updating order", 500);
     }
   }
+
+  async delete(id: string) {
+    try {
+      await prismaClient.orderProduct.deleteMany({
+        where: {
+          orderId: id
+        }
+      });
+  
+      await prismaClient.order.delete({
+        where: {
+          id
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error deleting order", 500);
+    }
+  }
 }
