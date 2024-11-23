@@ -14,4 +14,8 @@ export async function orderRoutes(fastify: FastifyInstance, options: FastifyPlug
   fastify.get('/:id', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new OrderController().getById(request, reply);
   });
+
+  fastify.patch('/', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new OrderController().update(request, reply);
+  });
 }

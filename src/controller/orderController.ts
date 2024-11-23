@@ -12,6 +12,11 @@ type GetByIdDataProps = {
   id: string; 
 }
 
+type updateDataProps = {
+  id: string;
+  isPaid: boolean;
+}
+
 export class OrderController {
   async create(request: FastifyRequest, reply: FastifyReply) {
     try {
@@ -45,6 +50,18 @@ export class OrderController {
     } catch (error) {
       console.log(error);
       throw new appError('Error getting order', 500);
+    }
+  }
+
+  async update(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { isPaid, id } = request.body as updateDataProps;
+      const orderService = new OrderService();
+      const order = await orderService.update({ id, isPaid });
+      reply.code(200).send({ order, message: 'Order updated' });
+    } catch (error) {
+      console.log(error);
+      throw new appError('Error updating order', 500);
     }
   }
 } 

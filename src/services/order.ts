@@ -77,4 +77,23 @@ export class OrderService {
       throw new appError("Error getting order", 500);
     }
   }
+
+
+  async update(data: { id: string, isPaid: boolean }) {
+    try {
+      const order = await prismaClient.order.update({
+        where: {
+          id: data.id
+        },
+        data: {
+          isPaid: data.isPaid
+        }
+      });
+
+      return order;
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error updating order", 500);
+    }
+  }
 }
