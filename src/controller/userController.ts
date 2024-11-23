@@ -18,7 +18,4 @@ export class UserController {
 
     }
 
-    async singIn(request: FastifyRequest, reply: FastifyReply) {
-        
-    }
 }
