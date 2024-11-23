@@ -49,4 +49,16 @@ export class ProductController {
       throw new appError("Error getting products", 500);
     }
   }
+
+  async delete(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const { id } = request.params as { id: string };
+      const productService = new ProductService();
+      await productService.delete(id);
+      reply.code(200).send({ message: "Product deleted" });
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error deleting product", 500);
+    }
+  }
 }

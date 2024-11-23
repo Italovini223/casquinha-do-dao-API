@@ -18,4 +18,5 @@ export async function orderRoutes(fastify: FastifyInstance, options: FastifyPlug
   fastify.patch('/', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new OrderController().update(request, reply);
   });
+
 }

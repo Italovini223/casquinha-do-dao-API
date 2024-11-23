@@ -88,4 +88,25 @@ export class ProductService {
       throw new appError("Error getting products", 500);
     }
   }
+
+  async delete(id: string) {
+    try {
+      const product = await this.getProductById(id);
+
+      if(!product) {
+        throw new appError("Product not found", 404);
+      }
+
+      await prismaClient.product.delete({
+        where: {
+          id
+        }
+      });
+
+      return;
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error deleting product", 500);
+    }
+  }
 }

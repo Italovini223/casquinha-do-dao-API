@@ -18,4 +18,8 @@ export async function productRoutes(fastify: FastifyInstance, options: FastifyPl
   fastify.get('/', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new ProductController().getAll(request, reply);
   });
+
+  fastify.delete('/:id', {preHandler: ensureAuthenticate}, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new ProductController().delete(request, reply);
+  });
 } 
