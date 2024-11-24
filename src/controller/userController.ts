@@ -1,6 +1,10 @@
 import { FastifyRequest, FastifyReply} from "fastify"
 import { UserService, userDataProps } from "../services/user";
 
+type getNameByIdDataPros = {
+    id: string;
+}
+
 export class UserController {
     async create(resquest: FastifyRequest, reply: FastifyReply) {
         try {
@@ -16,6 +20,21 @@ export class UserController {
             reply.code(500).send({ message: "Error creating user" });
         }
 
+    }
+
+    async getUserNameById(request: FastifyRequest, reply: FastifyReply) {
+        try {
+            const { id } = request.params as getNameByIdDataPros;
+            const userService = new UserService();
+            const userName = await userService.getUserNameById(id);
+            if (!userName) {
+                reply.code(404).send({ message: "User not found" });
+            } else {
+                reply.code(200).send({ userName });
+            }
+        } catch (error) {
+            reply.code(500).send({ message: "Error getting user" });
+        }
     }
 
 }

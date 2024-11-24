@@ -82,4 +82,24 @@ export class UserService {
             throw new Error("Error signing in");
         }
     }
+
+
+    async getUserNameById(id: string) {
+        try {
+            const user = await prismaClient.user.findUnique({
+                where: {
+                    id: id
+                }
+            });
+
+            if (user) {
+                return user.name;
+            } else {
+                return null;
+            }
+        } catch (error) {
+            console.log(error);
+            throw new Error("Error getting user name");
+        }
+    }
 }
