@@ -1,5 +1,6 @@
 import { prismaClient } from "../prisma";
 import bcrypt from "bcrypt";
+import { appError } from "../utils/appError";
 
 export type userDataProps = {
     email: string;
@@ -102,4 +103,18 @@ export class UserService {
             throw new Error("Error getting user name");
         }
     }
+    
+    async adminRequest(userId: string){
+        try {
+            await prismaClient.adminRequests.create({
+                data: {
+                    userId: userId
+                }
+            })
+        } catch (error) {
+            console.log(error);
+            throw new appError("Error requesting admin", 500);
+        }
+    }
+
 }
