@@ -36,7 +36,7 @@ export class UserService {
             };
         } catch (error) {
             console.log(error);
-            throw new Error("Error creating user");
+            throw new appError("Error creating user", 500);
         }
     }
 
@@ -80,7 +80,7 @@ export class UserService {
 
         } catch (error) {
             console.log(error);
-            throw new Error("Error signing in");
+            throw new appError("Error signing in", 500);
         }
     }
 
@@ -100,21 +100,9 @@ export class UserService {
             }
         } catch (error) {
             console.log(error);
-            throw new Error("Error getting user name");
+            throw new appError("Error getting user name", 500);
         }
     }
     
-    async adminRequest(userId: string){
-        try {
-            await prismaClient.adminRequests.create({
-                data: {
-                    userId: userId
-                }
-            })
-        } catch (error) {
-            console.log(error);
-            throw new appError("Error requesting admin", 500);
-        }
-    }
 
 }

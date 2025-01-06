@@ -13,4 +13,6 @@ export async function userRoutes(fastify: FastifyInstance, options: FastifyPlugi
         return new UserController().getUserNameById(request, reply);
     })
 
+    
+
 }

@@ -6,4 +6,13 @@ export async function adminRoutes(fastify: FastifyInstance, options: FastifyPlug
   fastify.post('/:id', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
     return new AdminController().adminRequest(request, reply);
   });
+
+  fastify.patch('/:id', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new AdminController().adminAccept(request, reply);
+  });
+
+  fastify.get('/', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new AdminController().getAllAdminRequests(request, reply);
+  });
+
 }
