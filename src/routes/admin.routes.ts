@@ -15,4 +15,8 @@ export async function adminRoutes(fastify: FastifyInstance, options: FastifyPlug
     return new AdminController().getAllAdminRequests(request, reply);
   });
 
+  fastify.delete('/:id', { preHandler: ensureAuthenticate }, async function handler(request: FastifyRequest, reply: FastifyReply) {
+    return new AdminController().adminReject(request, reply);
+  });
+
 }

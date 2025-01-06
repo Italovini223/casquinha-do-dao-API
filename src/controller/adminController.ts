@@ -29,6 +29,17 @@ export class AdminController {
     }
   }
 
+  async adminReject(request: FastifyRequest, reply: FastifyReply) {
+    try {
+      const adminService = new AdminService();
+      const { id } = request.params as AdminRequestDataProps;
+      await adminService.rejectAdminRequest(id);
+    } catch (error) {
+      console.log(error);
+      throw new appError("Error rejecting admin request", 500);
+    }
+  }
+
   async getAllAdminRequests(request: FastifyRequest, reply: FastifyReply) {
     try {
       const adminService = new AdminService();

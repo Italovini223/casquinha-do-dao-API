@@ -40,6 +40,18 @@ export class AdminService {
     }
   }
 
+  async rejectAdminRequest(userId: string){
+    try {
+      await prismaClient.adminRequests.deleteMany({
+        where: {
+          userId: userId
+        }
+      });
+    } catch (error) {
+      throw new appError("Error rejecting admin request", 500);
+    }
+  }
+
   async getAllAdminRequests(){
     try {
       const requests = await prismaClient.adminRequests.findMany();
