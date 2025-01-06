@@ -6,6 +6,7 @@ export type OrderProduct = {
   id: string;
   orderId: string;
   productId: string;
+  productName: string;
   quantity: number;
   price: number;
 };
@@ -22,6 +23,7 @@ export class OrderService {
           updatedAt: new Date(),
           products: {
             create: data.products.map(product => ({
+              productName: product.productName,
               productId: product.productId,
               quantity: product.quantity,
               price: product.price
