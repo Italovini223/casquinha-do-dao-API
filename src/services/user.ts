@@ -104,5 +104,20 @@ export class UserService {
         }
     }
     
+    async getAllUsers(){
+        try {
+            const users = await prismaClient.user.findMany();
+            const filteredUser = users.map(user => {
+                return {
+                    name: user.name,
+                    id: user.id,
+                }
+            });
+
+            return filteredUser;
+        } catch (error) {
+            throw new appError("Error getting all users", 500);
+        }
+    }
 
 }

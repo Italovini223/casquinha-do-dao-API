@@ -37,5 +37,15 @@ export class UserController {
         }
     }
 
+    async getAllUsers(request: FastifyRequest, reply: FastifyReply) {
+        try {
+            const userService = new UserService();
+            const users = await userService.getAllUsers();
+            reply.code(200).send({ users });
+        } catch (error) {
+            reply.code(500).send({ message: "Error getting users" });
+        }
+    }
+
 
 }

@@ -13,6 +13,8 @@ export async function userRoutes(fastify: FastifyInstance, options: FastifyPlugi
         return new UserController().getUserNameById(request, reply);
     })
 
-    
+    fastify.get('/', { preHandler: ensureAuthenticate}, async function handler (request: FastifyRequest, reply: FastifyReply) {
+        return new UserController().getAllUsers(request, reply);
+    })
 
 }
