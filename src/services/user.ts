@@ -120,4 +120,35 @@ export class UserService {
         }
     }
 
+    async delete(data: { email: string, password: string}){
+        try {
+            const user = await prismaClient.user.findUnique({
+                where: {
+                    email: data.email
+                }
+            });
+
+            if (user){
+                const passwordMatch = await bcrypt.compare(data.password, user.password);
+    
+                if (!passwordMatch) {
+                    return { status: 401, message: "Email or password incorrect" };
+                }
+
+                await prismaClient.user.delete({
+                    where: {
+                        id: user.id
+                    }
+                });
+    
+                return { status: 200, message: "User deleted" };
+
+            } else {
+                return { status: 401, message: "Email or password incorrect" };
+            }
+        } catch (error) {
+            throw new appError("Error deleting user", 500);
+        }
+    }
+
 }

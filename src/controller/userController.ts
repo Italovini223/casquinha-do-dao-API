@@ -47,5 +47,16 @@ export class UserController {
         }
     }
 
+    async delete(request: FastifyRequest, reply: FastifyReply) {
+        try {
+            const user = request.body as userDataProps;
+            const userService = new UserService();
+            const response = await userService.delete(user);
+            reply.code(response.status).send({ message: response.message });
+        } catch (error) {
+            reply.code(500).send({ message: "Error deleting user" });
+        }
+    }
+
 
 }

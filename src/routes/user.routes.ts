@@ -17,4 +17,8 @@ export async function userRoutes(fastify: FastifyInstance, options: FastifyPlugi
         return new UserController().getAllUsers(request, reply);
     })
 
+    fastify.delete('/', async function handler (request: FastifyRequest, reply: FastifyReply) {
+        return new UserController().delete(request, reply);
+    })
+
 }
